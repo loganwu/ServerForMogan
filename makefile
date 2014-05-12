@@ -1,8 +1,4 @@
-#        Version:  1.0
-#        Created:  03/27/2014 
-#       Revision:  none
 #       Compiler:  g++
-#         Editor:  vim (ts=4,sw=4,et)
 #         Author:  Logan
 #        History:
 #               1. Date:
