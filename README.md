@@ -1,5 +1,5 @@
 ------------------------------------
---BackEnd Game Server development
+BackEnd Game Server development
 -------------------------------------
 
 connect --> logicSVR--->Storage
