@@ -16,3 +16,4 @@ connect --> logicSVR--->Storage
 4.data cache 
 	use unix shm,reference attach server
 	use memcache opensource
+5. global area global server
