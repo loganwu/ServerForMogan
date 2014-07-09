@@ -1,0 +1,72 @@
+import "im_common.proto";
+import "im_msg.proto";
+import "im_status.proto";
+import "im_notify.proto";
+
+package tencent.im.imagent;
+
+message ImAgentPackage
+{
+    optional ImAgentHead head = 1;
+
+    optional msg.MsgSendReq msg_send_req = 11;
+    optional msg.MsgSendResp msg_send_resp = 12;
+    optional msg.MsgRecvReq msg_recv_req = 13;
+    optional msg.MsgRecvResp msg_recv_resp = 14;
+    optional msg.PullUnreadMsgReq pull_unread_msg_req = 15;
+    optional msg.PullUnreadMsgResp pull_unread_msg_resp = 16;
+    optional msg.ConfirmReadMsgReq confirm_read_msg_req = 17;
+    optional msg.ConfirmReadMsgResp confirm_read_msg_resp = 18;
+    optional status.PullStatusReq status_pull_req = 19;
+    optional status.PullStatusResp status_pull_resp = 20;
+    optional status.ChangeStatusReq status_push_req = 21;
+    optional status.ChangeStatusResp status_push_resp = 22;
+    optional notify.GroupNotifyReq group_notify_req = 23;
+    optional notify.GroupNotifyResp group_notify_resp = 24;
+}
+
+message ImAgentPackageForIf
+{
+    optional ImAgentHead head = 1;
+}
+
+message ImAgentHead
+{
+    optional Command command = 1;	//主命令号 -- 必填
+    optional uint32 seq = 2; // 包序列号 -- 必填
+    optional uint32 result = 3;
+    optional string err = 4;		//出错信息(if result != 0)
+    optional bytes echo_buf = 5;
+    optional common.User req_user = 6;  //请求方信息 -- 该结构字段: uin, app_id, client_ip -- 必填, 提供不了的可填 1
+    optional Requestinfo req_info = 7; //请求方无须关注，imagent 自己使用
+    optional Signature signature = 8;
+}
+
+enum Command
+{
+    IMAGENT_C2CMSG_SEND = 1;		//send c2cmsg
+    IMAGENT_C2CMSG_RECV = 2;		//recv c2cmsg
+    IMAGENT_GROUPMSG_SEND = 3;		//recv msg
+    IMAGENT_GROUPMSG_RECV = 4;		//recv msg
+    IMAGENT_PULL_UNREAD_MSG = 5;	//pull unread msg
+    IMAGENT_CONFIRM_READ_MSG = 6;	//confirm read msg
+    IMAGENT_PUSH_STATUS = 7;		//push status
+    IMAGENT_PULL_STATUS = 8;		//pull status
+    IMAGENT_GROUP_NOTIFY = 9;		//group notify
+}
+
+message Requestinfo
+{
+    optional fixed32 req_ip = 1;
+    optional uint32  req_port = 2;
+    optional uint32  req_flag = 3;     
+}
+
+message Signature
+{
+    optional uint32 key_type = 1;
+    optional uint32 session_app_id = 2;
+    optional bytes session_key = 3;
+}
+
+//    optional uint32 conn_msg_flag = 8;	//msg center head

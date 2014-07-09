@@ -1,0 +1,14 @@
+import "GScommon.proto"; //include other files
+
+package Connd.Data; //set namespace
+
+message CSLoginData
+{
+	required Common.User user = 1;
+}
+
+message SCLoginData
+{
+	required Common.User user = 1;
+	required int32 ret = 2;
+}

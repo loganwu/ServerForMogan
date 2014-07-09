@@ -1,0 +1,24 @@
+import "GScommon.proto"; //include other files
+import "GSdata.proto"; //
+
+package Connd.Protocol; //set namespace
+
+message GSHeader
+{
+	required uint32 packageLen = 1;
+	required uint32 cmdId = 2; //Common.Command
+	optional uint32	version = 3;
+}
+
+message GSBody
+{
+	optional Data.CSLoginData csLoginData = 1; //ID = CS_LOGIN
+	optional Data.SCLoginData scLoginData = 2; //ID = SC_LOGIN
+}
+
+
+message GSPkg
+{
+	required GSHeader header = 1;
+	required GSBody body = 2;
+}

@@ -1,0 +1,53 @@
+package tencent.im.common;
+
+message User
+{
+    optional uint64 uin = 1;
+    optional uint32 app_id = 2;
+    optional uint32 instance_id = 3;
+    optional uint32 app_type = 4;
+    optional fixed32 client_ip = 5;
+}
+
+message GroupInfo
+{
+    optional uint64 group_id = 1;
+    optional GroupType group_type = 2;
+}
+
+enum C2CType
+{
+    UNKNOWN = 0;	//未知
+    FWD_FRIEND = 1;	//to是from的好友
+    REV_FRIEND = 2;	//from是to的好友
+    BOTH_FRIEND = 3;	//双向好友
+    //(老C2CType << 8) + ServiceType
+    //WPA:
+    WPA_QZONE = 270;		//通过qzone上wpa发起的临时会话
+    WPA_PAIPAI = 275;		//通过拍拍上wpa发起的临时会话
+    //群组
+    GRP_GROUP = 512;		//在同一个群
+    GRP_CONFERENCE = 513;	//在同一个讨论组
+    GRP_HRTX = 514;	    	//在同一个RTX群
+}
+
+enum GroupType
+{
+    GROUP = 1;		//群
+    CONFERENCE = 2;	//讨论组
+}
+
+message Token
+{
+    optional bytes buf = 1;
+    //TODO
+}
+
+message BladeSoulToken
+{
+    optional uint32 key_ver = 1;
+    optional uint64 uin = 2;
+    optional uint32 app_id = 3;
+    optional uint32 key_time = 4;
+    optional uint32 random = 5;
+}

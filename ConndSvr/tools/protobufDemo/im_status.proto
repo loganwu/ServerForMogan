@@ -1,0 +1,54 @@
+import "im_common.proto";
+
+package tencent.im.status;
+
+message PullStatusReq //Pull Status From UinList
+{
+    repeated uint64 uin_lists = 1;			//Uin List
+}
+
+message PullStatusResp
+{
+    repeated UserStatus requser_status = 1;
+}
+
+message ChangeStatusReq
+{
+    optional uint32 opration = 1;
+    optional UserStatus user_status= 2;
+}
+
+message ChangeStatusResp
+{
+}
+
+message UserStatus
+{
+    optional uint64 uin = 1;
+    repeated AppInfo app_lists = 2;
+}
+
+message AppInfo
+{
+    optional uint32 app_id = 1;
+    repeated InstanceInfo ins_lists = 2;
+}
+
+message InstanceInfo
+{
+    optional uint32 instance_id = 1;
+    optional uint32 status = 2;
+    optional uint32 client_type = 3;
+    optional uint32 client_version = 4;
+    optional uint32 richstatus_seq = 5;
+    optional uint32 richstatus_refresh= 6;
+    optional fixed32 notify_ip = 7;
+    optional uint32 notify_port = 8;
+    optional uint32 last_active_time = 9;
+    optional uint32 login_time = 10;
+    optional uint32 user_flag = 11;
+    optional uint32 secure_flag = 12;
+    optional uint32 kick_mode = 13;
+}
+
+

@@ -1,0 +1,13 @@
+package Connd.Common; //set namespace
+
+message User
+{
+	required uint64 QQ = 1;
+	required uint32 appId = 2;
+}
+
+enum Command
+{
+	CS_LOGIN = 1; //login protocal number
+	SC_LOGIN = 2;
+}

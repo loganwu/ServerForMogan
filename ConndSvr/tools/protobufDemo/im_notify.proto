@@ -1,0 +1,25 @@
+import "im_status.proto";
+
+package tencent.im.notify;
+
+
+message GroupNotifyReq	//notify from group, about operation from group
+{
+	optional uint32 group_code = 1; //群号
+	optional uint32 notify_op = 2; 	//标识notify的类型(1 解散群; 2 转让群; 3.同意用户加群)
+	optional uint32 notify_uin = 3;	//通知的Uin(notify_op = 1/2的时候,notify_uin表示群主 notify_op = 3的时候,notify_uin表示加到群中的用户QQ号码)
+}
+
+message GroupNotifyResp
+{
+}
+
+
+message KickOffReq	//notify from other app, request to kick QQ off
+{
+    	repeated status.UserStatus kick_uin_status = 1;
+}
+
+message KickOffResp
+{
+}
