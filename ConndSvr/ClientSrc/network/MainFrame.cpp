@@ -3,7 +3,7 @@
 int main(int argc, char**argv)
 {
 	NetWork stNetWork;
-	const char sIP[] = "172.25.40.225";
+	const char sIP[] = "127.0.0.1";
 	int iPort = 9999;
 
 	stNetWork.InitSock(sIP,iPort);
