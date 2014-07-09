@@ -7,9 +7,9 @@
 
 CC = g++
 CFLAGS += -pg -g
-DEP_INCS = -I/usr/include/mysql/ -I/usr/local/homebrew/include/mysql
-DEP_LIBS = -L /usr/lib64/mysql/ -L /usr/local/homebrew/lib
-GAME_BIN = ./bin/MainGame
+DEP_INCS = -I/usr/include/mysql/ -I/usr/local/homebrew/include/mysql -I/usr/local/Cellar/mysql/5.6.17_1/include/mysql
+DEP_LIBS = -L /usr/lib64/mysql/ -L /usr/local/homebrew/lib -L/usr/local/Cellar/mysql/5.6.17_1/lib/
+GAME_BIN = ./bin/MainDB
 
 OK = \\e[1m\\e[32m OK \\e[m
 FAILURE = \\e[1m\\e[31m FAILURE \\e[m
