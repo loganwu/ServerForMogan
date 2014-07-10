@@ -1,4 +1,4 @@
-prefix=/Users/ranrobin/protobuf-2.5.0/installDir
+prefix=/Users/ranrobin/ServerForMogan/ConndSvr/protobuf-2.5.0/installDir
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include

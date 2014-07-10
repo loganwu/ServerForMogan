@@ -1,6 +1,6 @@
 #libevent pkg-config source file
 
-prefix=/Users/ranrobin/libevent-2.0.21-stable/installDir
+prefix=/Users/ranrobin/ServerForMogan/ConndSvr/libevent-2.0.21-stable/installDir
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include

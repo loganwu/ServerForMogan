@@ -193,7 +193,7 @@ done
 
 # These have defaults filled in by the configure script but can also be
 # overridden by environment variables or command line parameters.
-prefix="${GTEST_PREFIX:-/Users/ranrobin/protobuf-2.5.0/installDir}"
+prefix="${GTEST_PREFIX:-/Users/ranrobin/ServerForMogan/ConndSvr/protobuf-2.5.0/installDir}"
 exec_prefix="${GTEST_EXEC_PREFIX:-${prefix}}"
 libdir="${GTEST_LIBDIR:-${exec_prefix}/lib}"
 includedir="${GTEST_INCLUDEDIR:-${prefix}/include}"
