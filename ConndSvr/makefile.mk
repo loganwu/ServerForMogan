@@ -1,5 +1,5 @@
 #####################################################
-PLATFORM=macosx
+PLATFORM=linux
 
 EXT_LIB_ROOT=${BUILD_ROOT_PATH}/extlib
 
