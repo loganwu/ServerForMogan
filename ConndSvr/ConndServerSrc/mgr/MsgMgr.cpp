@@ -79,17 +79,7 @@ int MsgMgr::GetOneConndMsg(Session *pSession)
 
 void MsgMgr::DumpMsg( Connd::Protocol::GSPkg& pkg )
 {
-	logdbg("cmdid %d version %d qq %d\n",pkg.header().cmdid(),pkg.header().version(),pkg.body().cslogindata().user().qq());
-	if (pkg.header().cmdid(),pkg.body().has_sclogindata())
-	{
-		logdbg("sclogindata exist\n");
-	}
-	else
-	{
-		logdbg("sclogindata NOT exist\n");
-	}
-	
-
+	pkg.PrintDebugString();
 }
 
 
