@@ -12,7 +12,7 @@ function rename
 	for file in `ls *.cc`
 	do
 		prefix=`echo $file|awk '{print substr($0,1,length($0)-3)}'`
-		echo $prefix
+		#echo $prefix
 		mv $file $prefix.cpp
 	done
 }
@@ -31,5 +31,12 @@ function create_client_protocal_file
 	rename
 }
 
+function build_ext_lib
+{
+	cd libevent-2.0.21-stable && ./conv.sh
+	cd ../protobuf-2.5.0 && ./conv.sh
+}
+
+build_ext_lib
 cd $SCRPT_PATH && create_protocal_file
 cd $SCRPT_PATH && create_client_protocal_file
