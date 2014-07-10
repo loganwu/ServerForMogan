@@ -1,3 +1,2 @@
-bin/Client
-bin/Connd
-extlib/libevent/lib/libevent.a
+libevent-2.0.21-stable
+protobuf-2.5.0
