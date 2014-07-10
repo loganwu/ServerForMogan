@@ -7,8 +7,8 @@ INSTALL_PATH=$PWD_PATH/installDir
 function copy_lib
 {
 	cd $INSTALL_PATH 
-	cp lib/libevent.a $EXT_LIB_PATH/lib
-	cp -rf include/*  $EXT_LIB_PATH/include
+	cp lib/libevent.a $EXT_LIB_PATH/lib/
+	cp -rf include/*  $EXT_LIB_PATH/include/
 }
 
 ./configure --prefix=$INSTALL_PATH && make && make install

@@ -8,8 +8,8 @@ INSTALL_PATH=$PWD_PATH/installDir
 function copy_lib
 {
 	cd $INSTALL_PATH 
-	cp lib/lib$EXT_LIB_NAME.a $EXT_LIB_PATH/lib
-	cp -rf include/*  $EXT_LIB_PATH/include
+	cp lib/lib$EXT_LIB_NAME.a $EXT_LIB_PATH/lib/
+	cp -rf include/*  $EXT_LIB_PATH/include/
 	cp bin/protoc $PWD_PATH/../bin/
 }
 
