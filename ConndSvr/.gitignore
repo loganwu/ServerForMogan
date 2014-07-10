@@ -1,2 +1,3 @@
 bin/Client
 bin/Connd
+extlib/libevent/lib/libevent.a
