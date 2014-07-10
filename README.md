@@ -16,4 +16,4 @@ connect --> logicSVR--->Storage
 	use unix shm,reference attach server
 	use memcache opensource
 5. data representation: google protobuf
-6. Game architecture: global area global server
+6. Game architecture: global area and global server, logically divide into single area
