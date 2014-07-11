@@ -1,4 +1,5 @@
 #include "Network.h"
+#include <unistd.h>
 
 int main(int argc, char**argv)
 {
@@ -8,7 +9,11 @@ int main(int argc, char**argv)
 
 	stNetWork.InitSock(sIP,iPort);
 	stNetWork.SendMsg();
-
+	sleep(1);
+	while(stNetWork.RecMsg() < 0)
+	{
+		sleep(1);
+	}
 #if 0
 	while (fgets(sendline, 10000,stdin) != NULL)
 	{

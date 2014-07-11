@@ -11,7 +11,7 @@
 
 include ../makefile.mk
 include ../BUILD_ROOT
-CFLAGS += -ggdb
+CFLAGS += -ggdb -DDEBUG
 OK = \\e[1m\\e[32m OK \\e[m
 FAILURE = \\e[1m\\e[31m FAILURE \\e[m
 .PHONY: all clean cleandep

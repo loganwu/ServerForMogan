@@ -85,8 +85,23 @@ int MsgMgr::GetOneConndMsg(Session *pSession)
 
 void MsgMgr::DumpMsg( Connd::Protocol::GSPkg& pkg )
 {
+#ifdef DEBUG
+	logdbg("=====================================\n");
 	pkg.PrintDebugString();
+	logdbg("=====================================\n");
+#endif
 }
+
+int MsgMgr::OnSendPkg( Connd::Protocol::GSPkg &stPkg, Session &stSession)
+{
+	if (EncodeMsg(stPkg,m_sNetBuf,stPkg.header().packagelen()))
+	{
+		return stSession.OnWrite(m_sNetBuf,stPkg.header().packagelen());
+	}
+	DumpMsg(stPkg);
+	return 0;
+}
+
 
 
 

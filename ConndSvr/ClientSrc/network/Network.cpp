@@ -52,7 +52,7 @@ int NetWork::InitSock(const char *szIp, const int iPort)
 		return -2;
 	}
 
-	logdbg("ImAgent socket init ok.");
+	logdbg("ImAgent socket init ok.\n");
 
 	return 0;
 }
@@ -127,4 +127,21 @@ bool NetWork::SerializeMessage(const ::google::protobuf::Message& pkg, std::stri
 	buf = oss.str();
 
 	return true;
+}
+
+int NetWork::RecMsg()
+{
+	memset(m_sNetBuf,0,sizeof(m_sNetBuf));
+
+	int len=recvfrom(m_iSockFd,m_sNetBuf,sizeof(m_sNetBuf)-1,0,NULL,NULL);
+	if (len < 0)
+	{
+		logerr("rec error\n");
+		return -1;
+	}
+	
+	DecodeMsg(m_stGSPkg,m_sNetBuf,len);
+	m_stGSPkg.DebugString();
+
+	return 0;
 }

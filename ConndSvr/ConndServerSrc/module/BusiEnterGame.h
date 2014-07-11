@@ -8,8 +8,8 @@ class BusiEnterGame
     public:
         BusiEnterGame(){};
         ~BusiEnterGame(){};
-		int OnLogin(ConndMsg& msg);
-		int OnEnterZone(ConndMsg& msg);
+		int OnLogin(ConndMsg& stMsg);
+		int OnEnterZone(ConndMsg& stMsg);
     private:
 		int FinishLogin(/*RoleInfo* pstRoleInfo*/);
         int CheckAvgLoad();

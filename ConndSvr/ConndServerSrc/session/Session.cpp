@@ -122,7 +122,7 @@ int Session::SetAddr( uint32_t uIP, uint32_t uPort)
 		logdbg("session closed[%s:%d]\n",m_strIP.c_str(), m_uPort);
 	} else if (events & BEV_EVENT_ERROR) 
 	{
-		logdbg("Got an error on the connection[%s:%d] start \n",m_strIP.c_str(), m_uPort);
+		logdbg("Got an error on the connection[%s:%d]\n",m_strIP.c_str(), m_uPort);
 	}
 	/* None of the other events can happen here, since we haven't enabled
 	 * timeouts */

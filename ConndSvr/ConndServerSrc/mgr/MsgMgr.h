@@ -15,6 +15,7 @@ public:
 	int Clear();
 	int GetOneConndMsg(Session *pSession);
 	int OnProcMsg();
+	int OnSendPkg(Connd::Protocol::GSPkg &stPkg, Session &stSession);
 private:
 	bool EncodeMsg(Connd::Protocol::GSPkg& pkg, char *buf, int iBufLen);
 	bool DecodeMsg(Connd::Protocol::GSPkg& pkg, const char *buf, int iBufLen);

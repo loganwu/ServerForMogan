@@ -2,19 +2,19 @@
 /* config.h.in.  Generated from configure.ac by autoheader.  */
 
 /* the name of <hash_map> */
-#define HASH_MAP_CLASS unordered_map
+#define HASH_MAP_CLASS hash_map
 
 /* the location of <unordered_map> or <hash_map> */
-#define HASH_MAP_H <unordered_map>
+#define HASH_MAP_H <ext/hash_map>
 
 /* the namespace of hash_map/hash_set */
-#define HASH_NAMESPACE std
+#define HASH_NAMESPACE __gnu_cxx
 
 /* the name of <hash_set> */
-#define HASH_SET_CLASS unordered_set
+#define HASH_SET_CLASS hash_set
 
 /* the location of <unordered_set> or <hash_set> */
-#define HASH_SET_H <unordered_set>
+#define HASH_SET_H <ext/hash_set>
 
 /* Define to 1 if you have the <dlfcn.h> header file. */
 #define HAVE_DLFCN_H 1

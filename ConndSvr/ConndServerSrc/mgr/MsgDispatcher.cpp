@@ -56,7 +56,7 @@ int MsgDispatcher::Dispatch(ConndMsg& stMsg)
         logerr("Dispatch  message error,msgid:%d,iret=%d\n",stMsg.uCmdId,iRet);
 		return iRet;
     }
-	logerr("Suc Dispatch  message msgid:%d\n",stMsg.uCmdId);
+	logdbg("Suc Dispatch  message msgid:%d\n",stMsg.uCmdId);
     return 0;		
 }
 
