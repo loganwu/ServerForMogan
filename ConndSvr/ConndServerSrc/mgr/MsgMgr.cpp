@@ -94,11 +94,12 @@ void MsgMgr::DumpMsg( Connd::Protocol::GSPkg& pkg )
 
 int MsgMgr::OnSendPkg( Connd::Protocol::GSPkg &stPkg, Session &stSession)
 {
+	LOG_FUNCTION;
+	DumpMsg(stPkg);
 	if (EncodeMsg(stPkg,m_sNetBuf,stPkg.header().packagelen()))
 	{
 		return stSession.OnWrite(m_sNetBuf,stPkg.header().packagelen());
 	}
-	DumpMsg(stPkg);
 	return 0;
 }
 

@@ -10,20 +10,13 @@ int main(int argc, char**argv)
 	stNetWork.InitSock(sIP,iPort);
 	stNetWork.SendMsg();
 	sleep(1);
-	while(stNetWork.RecMsg() < 0)
-	{
-		sleep(1);
-	}
-#if 0
-	while (fgets(sendline, 10000,stdin) != NULL)
-	{
-		sendto(sockfd,sendline,strlen(sendline),0,
-			(struct sockaddr *)&servaddr,sizeof(servaddr));
-		n=recvfrom(sockfd,recvline,10000,0,NULL,NULL);
-		recvline[n]=0;
-		fputs(recvline,stdout);
-	}
-#endif
-
+	stNetWork.RecMsg();
+// 	while(stNetWork.RecMsg() < 0)
+// 	{
+// 		sleep(1);
+// 		stNetWork.RecMsg();
+// 
+// 	}
+	printf("Client Termined\n");
 	return 0;
 }

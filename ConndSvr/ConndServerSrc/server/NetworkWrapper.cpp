@@ -35,7 +35,7 @@ NetworkWrapper::~NetworkWrapper()
 
 void timer_cb(int sock, short event, void *user_data)
 {
-	logdbg("Tick\n");
+	//logdbg("Tick\n");
 	NetworkWrapper *pNetWp = (NetworkWrapper *)user_data;
 	pNetWp->Tick();
 

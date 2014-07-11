@@ -2,6 +2,7 @@
 #include "GSProtocol.pb.h"
 #include "ProtocalSys.h"
 #include "SingletonHolder.h"
+#include "log.h"
 
 using namespace Connd::Protocol;
 using namespace Connd::Data;
@@ -9,6 +10,8 @@ using namespace Connd::Common;
 
 int BusiEnterGame::OnLogin( ConndMsg& stMsg )
 {
+	LOG_FUNCTION;
+
 	if(CheckAvgLoad()!=0)
 	{
 		return -1;

@@ -2,6 +2,7 @@
 #include "SingletonHolder.h"
 #include "Session.h"
 #include "MsgMgr.h"
+#include "log.h"
 
 using namespace Connd::Protocol;
 using namespace Connd::Data;
@@ -16,6 +17,8 @@ ProtocalSys::~ProtocalSys()
 
 int ProtocalSys::SendLoginInfo( ConndMsg &stMsg )
 {
+	LOG_FUNCTION;
+
 	m_stPkg.Clear();
 	m_stPkg.mutable_header()->set_cmdid(SC_LOGIN);
 	m_stPkg.mutable_header()->set_packagelen(0);

@@ -21,6 +21,8 @@
 #define logdbg(fmt, args...)  do { syslog(LOG_INFO, "logdbg %s.%d:" fmt, __FILE__,__LINE__,##args);\
 									fprintf(stdout, "logdbg %s.%d:" fmt, __FILE__,__LINE__, ##args);\
 								  }while (0)
+#define LOG_FUNCTION  printf("%s\n",__PRETTY_FUNCTION__);
+
 #else
 #define logerr(fmt, args...)
 #define logdbg(fmt, args...)

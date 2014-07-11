@@ -139,9 +139,9 @@ int NetWork::RecMsg()
 		logerr("rec error\n");
 		return -1;
 	}
-	
+	logdbg("rec len %d\n",len);
 	DecodeMsg(m_stGSPkg,m_sNetBuf,len);
-	m_stGSPkg.DebugString();
+	m_stGSPkg.PrintDebugString();
 
 	return 0;
 }
