@@ -24,7 +24,7 @@ void conn_read_cb(struct bufferevent *bev, void *user_data)
 // {
 	//switch to class function;
 //Session *pSession = static_cast<Session*>(user_data);
-//pSession->OnWrite();
+//pSession->OnWriteCallback();
 // 	struct evbuffer *output = bufferevent_get_output(bev);
 // 	if (evbuffer_get_length(output) == 0)
 // 	{
@@ -109,9 +109,10 @@ int Session::SetAddr( uint32_t uIP, uint32_t uPort)
 	return iBufLen;
  }
 
- int Session::OnWrite()
+ int Session::OnWrite(char *pBuf, int iBufLen)
  {
-	 return 0;
+	return  bufferevent_write(m_bufEvent,pBuf,iBufLen);
+
  }
 
  int Session::OnErrEvent( uint16_t events )

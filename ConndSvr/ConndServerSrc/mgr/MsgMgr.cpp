@@ -72,6 +72,7 @@ int MsgMgr::GetOneConndMsg(Session *pSession)
 	{
 		return -2;
 	}
+	m_stConndMsg.uCmdId = m_stConndMsg.stGSPkg.header().cmdid();
 	DumpMsg(m_stConndMsg.stGSPkg);
 
 	return 0;

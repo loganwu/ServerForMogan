@@ -17,7 +17,7 @@ public:
 	int SetSockHandle(int iFD);
 	SessionKey GetKey();
 	int OnRead(char *pBuf, int &iBufLen);
-	int OnWrite();
+	int OnWrite(char *pBuf, int iBufLen);
 	int OnErrEvent(uint16_t events);
 	const std::string & OnGetIPAddr();
 	int OnGetPort();
