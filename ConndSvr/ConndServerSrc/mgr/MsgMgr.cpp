@@ -16,12 +16,16 @@ int MsgMgr::Init()
 {
 	GOOGLE_PROTOBUF_VERIFY_VERSION;
 	memset(m_sNetBuf,0,sizeof(m_sNetBuf));
+
+	return 0;
 }
 
 
 int MsgMgr::Clear()
 {
 	google::protobuf::ShutdownProtobufLibrary();
+
+	return 0;
 }
 
 
@@ -75,7 +79,8 @@ int MsgMgr::GetOneConndMsg(Session *pSession)
 	m_stConndMsg.uCmdId = m_stConndMsg.stGSPkg.header().cmdid();
 	DumpMsg(m_stConndMsg.stGSPkg);
 
-	return 0;
+	return m_stMsgDispatcher.Dispatch(m_stConndMsg);
+
 }
 
 void MsgMgr::DumpMsg( Connd::Protocol::GSPkg& pkg )
