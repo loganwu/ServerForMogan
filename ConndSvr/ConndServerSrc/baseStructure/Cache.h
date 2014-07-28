@@ -1,23 +1,3 @@
-// =====================================================================================
-// 
-//       Filename:  Cache.h
-// 
-//    Description:  
-// 
-//        Version:  1.0
-//        Created:  11/18/2009 11:28:19 AM CST
-//       Revision:  none
-//       Compiler:  g++
-//         Editor:  vim (ts=4,sw=4,et)
-//         Author:  Jaco Wu (), jacowu@tencent
-//        Company:  Tencent
-// 
-//        History:
-//               1. Date:
-//                  Author:
-//                  Modification:
-// =====================================================================================
-
 #include "CacheDef.h"
 #include <stdlib.h>
 #include <string>
@@ -283,5 +263,4 @@ int MemCache<T,K,size,hashsize>::Del(K key)
 
 
 #endif   /* ----- #ifndef CACHE_INC  ----- */
-/* vi:set ts=4: */ 
 

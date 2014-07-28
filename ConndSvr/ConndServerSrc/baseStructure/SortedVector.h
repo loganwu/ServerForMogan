@@ -1,23 +1,3 @@
-// =====================================================================================
-// 
-//       Filename:  SortedVector.h
-// 
-//    Description:  
-// 
-//        Version:  1.0
-//        Created:  11/16/2012 05:33:45 PM CST
-//       Revision:  none
-//       Compiler:  g++
-//         Editor:  vim (ts=4,sw=4,et)
-//         Author:  Jaco Wu (), jacowu@tencent
-//        Company:  Tencent
-// 
-//        History:
-//               1. Date:
-//                  Author:
-//                  Modification:
-// =====================================================================================
-
 #ifndef  SORTEDVECTOR_INC
 #define  SORTEDVECTOR_INC
 
@@ -120,5 +100,4 @@ struct SortedVector
 };
 
 #endif   /* ----- #ifndef SORTEDVECTOR_INC  ----- */
-/* vi:set ts=4: */ 
 

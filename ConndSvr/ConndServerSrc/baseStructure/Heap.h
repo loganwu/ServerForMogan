@@ -1,23 +1,3 @@
-// =====================================================================================
-// 
-//       Filename:  hsort.h
-// 
-//    Description:  fast sort base on heap
-// 
-//        Version:  1.0
-//        Created:  08/13/2007 10:08:35 AM CST
-//       Revision:  none
-//       Compiler:  g++
-//         Editor:  vim (ts=4,sw=4,et)
-//         Author:  Jaco Wu (), jacowu@tencent
-//        Company:  Tencent
-// 
-//        History:
-//               1. Date:
-//                  Author:
-//                  Modification:
-// =====================================================================================
-
 #ifndef  HSORT_INC
 #define  HSORT_INC
 
@@ -95,4 +75,3 @@ void heap_sort(T * list, int length)
 
 
 #endif   /* ----- #ifndef HSORT_INC  ----- */
-/* vi:set ts=4: */ 
