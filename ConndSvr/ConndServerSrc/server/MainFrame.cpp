@@ -5,7 +5,7 @@
 #include "SingletonHolder.h"
 #include "log.h"
 
-nt Init()
+int Init()
 {
 	SingletonHolder<NetworkWrapper>::Instance()->Init();
 	return 0;
