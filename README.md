@@ -17,3 +17,4 @@ connect --> logicSVR--->Storage
 	use memcache opensource
 5. data representation: google protobuf
 6. Game architecture: global area and global server, logically divide into single area
+7. Add some basical data structure: heap hash sort vector etc.
