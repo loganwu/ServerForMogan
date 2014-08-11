@@ -92,18 +92,13 @@ int MemMgr::Init()
 
 void MemMgr::DumpInfo(ostream& os)
 {
-//     os<<"=========================MEMORY INFO==========================="<<endl;
-//     os<<"MAX ONLINE USER NUM:"<<MAX_SESSION_NUM<<endl;
-//     os<<"MAX SERVER USER NUM:"<<MAX_USER_NUM<<endl;
-// 
-//     os<<"SESSION CACHE SIZE:"<<m_pSessionCache->Capacity()<<_DUMP_SIZE(ClientSessionCache);
-//     os<<"ROLE  CACHE SIZE:"<<m_pRoleCache->Capacity()<<_DUMP_SIZE(RoleCache);
-//     os<<"HERO  CACHE SIZE:"<<m_pHeroCache->Capacity()<<_DUMP_SIZE(HeroCache);
-// 	os<<"RANK  CACHE SIZE:"<<"sizeof(RankInfo)/sizeof(RankData):"<<sizeof(RankInfo)<<"/"<<sizeof(RankData)<<";total:"<<m_pRankCache->Capacity()<<_DUMP_SIZE(RankCache);
-//     os<<"TOTAL CACHE SIZE:"<< (sizeof(ClientSessionCache)+
-//             sizeof(RoleCache)+
-//             sizeof(RankCache)+
-//             sizeof(HeroCache))/1024/1024 <<"M"<<endl;
+    os<<"=========================MEMORY INFO==========================="<<endl;
+    os<<"MAX ONLINE USER NUM:"<<MAX_SESSIONS<<endl;
+    os<<"MAX SERVER USER NUM:"<<MAX_USERS<<endl;
+
+    os<<"SESSION CACHE SIZE:"<<m_pSessionCache->Capacity()<<_DUMP_SIZE(ClientSessionCache);
+    os<<"ROLE  CACHE SIZE:"<<m_pRoleCache->Capacity()<<_DUMP_SIZE(RoleCache);
+    os<<"TOTAL CACHE SIZE:"<< (sizeof(ClientSessionCache)+sizeof(RoleCache))/1024/1024 <<"M"<<endl;
 }
 
 int MemMgr::GetRoleCacheUsedRate()

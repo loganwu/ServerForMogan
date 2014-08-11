@@ -4,10 +4,26 @@
 #include "NetworkWrapper.h"
 #include "SingletonHolder.h"
 #include "log.h"
+#include "MemMgr.h"
+
+#define _INIT_DEF(ClassName) do \
+{ \
+	if(SingletonHolder<ClassName>::Instance()->Init() != 0) \
+	{ \
+		logerr("%s init failure\n",#ClassName); \
+	} \
+	else \
+	{ \
+		logdbg("%s init success\n",#ClassName); \
+	} \
+} while (0);
+
 
 int Init()
 {
-	SingletonHolder<NetworkWrapper>::Instance()->Init();
+	_INIT_DEF(NetworkWrapper);
+	_INIT_DEF(MemMgr);
+	
 	return 0;
 }
 
