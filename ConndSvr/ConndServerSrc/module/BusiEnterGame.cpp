@@ -3,6 +3,7 @@
 #include "ProtocalSys.h"
 #include "SingletonHolder.h"
 #include "log.h"
+#include "RoleInfo.h"
 
 using namespace Connd::Protocol;
 using namespace Connd::Data;
