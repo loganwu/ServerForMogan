@@ -4,7 +4,7 @@ echo "BUILD_ROOT_PATH=`pwd`" > ./BUILD_ROOT
 
 SCRPT_PATH=`pwd`
 PATH=$PATH:$SCRPT_PATH/bin/
-chmod +x ./bin/*
+chmod -f +x ./bin/*
 PROTO_SRC_PATH=./ConndServerSrc/protocol/pb
 PROTO_CLIENT_SRC_PATH=./ClientSrc/protocol/
 rename()
