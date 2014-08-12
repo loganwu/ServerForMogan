@@ -1,6 +1,8 @@
 #ifndef  SORTEDVECTOR_INC
 #define  SORTEDVECTOR_INC
 
+#include <stdio.h>
+
 template<class T,int N>
 struct SortedVector 
 {
