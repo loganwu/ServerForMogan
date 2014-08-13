@@ -4,7 +4,7 @@ PWD_PATH=`pwd`
 EXT_LIB_PATH=$PWD_PATH/../extlib/libevent
 INSTALL_PATH=$PWD_PATH/installDir
 
-function copy_lib
+copy_lib()
 {
 	cd $INSTALL_PATH 
 	cp lib/libevent.a $EXT_LIB_PATH/lib/
