@@ -5,7 +5,7 @@ OK = \\e[1m\\e[32m OK \\e[m
 FAILURE = \\e[1m\\e[31m FAILURE \\e[m
 .PHONY: all clean 
 
-TARGET_DIR=../extlib/shmqueue/
+TARGET_DIR=../extlib/shmqueue/lib
 TARGET=$(TARGET_DIR)/libshmq.a 
 all: $(TARGET)
 ######################################################################
@@ -19,7 +19,7 @@ clean:
 	rm  -f $(TARGET) $(OBJS) 
 
 $(TARGET): $(OBJS) 
-	@echo -e Linking $(TARGET) ... 
+	@echo -ne Linking $(TARGET) ... && echo  -e $(OK) || echo -e $(FAILURE) 
 	@$(AR) $(TARGET) $(OBJS)
 
 %.o: %.c 
