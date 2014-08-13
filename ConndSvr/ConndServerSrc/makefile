@@ -49,7 +49,7 @@ sinclude $(SRCS:.cpp=.d)
 	rm -f $@.$$$$;
 
 $(GAME_BIN): $(OBJS) 
-	echo "${DIRS}" 
+	#echo "${LIBS}" 
 	@echo -ne Linking $(GAME_BIN) ... 
 	@$(CC) -o $(GAME_BIN) $(CFLAGS) $^ $(INCS) $(LIBS) && echo  -e $(OK) || echo -e $(FAILURE)
 

@@ -9,7 +9,7 @@ INC_LIBEVENT= -I$(EXT_LIB_ROOT)/libevent/include/
 INC_PROBUFEVENT= -I$(EXT_LIB_ROOT)/protobuf/include/
 INC_SHMQUEUE= -I$(EXT_LIB_ROOT)/shmqueue/include/
 
-INC_EXT =  $(INC_LIBEVENT) $(INC_PROBUFEVENT) 
+INC_EXT =  $(INC_LIBEVENT) $(INC_PROBUFEVENT) $(INC_SHMQUEUE)
 
 LIB_MYSQL = -L$(MYSQL_ROOT)/lib/mysql -lmysqlclient -lz
 ifeq ($(PLATFORM),macosx)
@@ -18,9 +18,9 @@ else #linux
 	LIB_EVENT= -L$(EXT_LIB_ROOT)/libevent/lib/ -levent -lrt #linux libevent depends on librt
 endif
 LIB_PROBUF= -L$(EXT_LIB_ROOT)/protobuf/lib/ -lprotobuf 
-LIB_SHMQUEUE= -I$(EXT_LIB_ROOT)/shmqueue/lib -lshmq
+LIB_SHMQUEUE= -L$(EXT_LIB_ROOT)/shmqueue/lib -lshmq
 
-LIB_EXT = $(LIB_EVENT) $(LIB_PROBUF)
+LIB_EXT = $(LIB_EVENT) $(LIB_PROBUF) $(LIB_SHMQUEUE)
 
 CC              = g++
 CXX             = g++ 
