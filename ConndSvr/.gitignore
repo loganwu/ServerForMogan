@@ -3,3 +3,11 @@ protobuf-2.5.0
 *.o
 *.d
 *.log
+BUILD_ROOT
+bin/Client
+bin/Connd
+bin/protoc
+extlib/libevent/include/event2/event-config.h
+extlib/libevent/lib/libevent.a
+extlib/protobuf/lib/libprotobuf.a
+shmqueue_v2.0.tgz
