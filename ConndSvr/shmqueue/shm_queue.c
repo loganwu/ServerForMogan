@@ -1,17 +1,3 @@
-/*
- * shm_queue.c
- * Implementation of a shm queue
- *
- *  Created on: 2014-5-5
- *      Author: Shaneyu <shaneyu@tencent.com>
- *
- *  Based on implementation of transaction queue
- *
- *  Revision history:
- *  2014-07-05		shaneyu		Add registration/signal support
- *  2014-07-15  	shaneyu		Use fifo for data notification
- *  2014-07-21		shaneyu		Resolve multiple write conflicts
- */
 #include <stdint.h>
 #include <sys/time.h>
 #include <stdlib.h>
