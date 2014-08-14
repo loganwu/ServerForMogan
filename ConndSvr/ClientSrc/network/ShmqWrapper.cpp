@@ -4,6 +4,7 @@
 #include <unistd.h>
 
 #include "ShmqWrapper.h"
+#include "SingletonHolder.h"
 #include "shm_queue.h"
 #include "log.h"
 
@@ -59,6 +60,7 @@ int ShmqWrapper::OnWrite( const char* pData, int iSize )
 int ShmqWrapper::OnRead( const char* pData, int iSize )
 {
 	int event_fd = sq_get_eventfd(m_pShmQueue);
+	struct timeval tv;
 
 	while(true)
 	{
@@ -75,7 +77,7 @@ int ShmqWrapper::OnRead( const char* pData, int iSize )
 		}
 		if(FD_ISSET(event_fd, &fdset)) 
 			sq_consume_event(m_pShmQueue);
-		int len = sq_get(m_pShmQueue, (void*)pData, iSize,NULL);
+		int len = sq_get(m_pShmQueue, (void*)pData, iSize,&tv);
 		if(len<0) // ¶ÁÊ§°Ü
 		{
 		}
@@ -89,5 +91,15 @@ int ShmqWrapper::OnRead( const char* pData, int iSize )
 			return len;
 		}
 	}
+}
+
+int ShmqWrapper::GetUsage()
+{
+	return sq_get_usage(m_pShmQueue);
+}
+
+int ShmqWrapper::GetUsedBlocks()
+{
+	return sq_get_used_blocks(m_pShmQueue);
 }
 
