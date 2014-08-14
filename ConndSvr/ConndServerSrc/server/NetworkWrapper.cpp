@@ -9,6 +9,7 @@
 #include "SingletonHolder.h"
 #include "Session.h"
 #include "SessionMgr.h"
+#include "ShmqWrapper.h"
 
 struct event_base *gstEvtBase;
 
@@ -157,6 +158,10 @@ int NetworkWrapper::OnAAccept( uint32_t uIP, uint32_t uPort,int iFD )
 
 int NetworkWrapper::Tick()
 {
+	logdbg("Used blocks %d, usag %d%%\n",
+		SingletonHolder<ShmqWrapper>::Instance()->GetUsedBlocks()
+		,SingletonHolder<ShmqWrapper>::Instance()->GetUsage());
+
 	struct timeval tv;  
 	tv.tv_sec = 1;  
 	tv.tv_usec = 0;   

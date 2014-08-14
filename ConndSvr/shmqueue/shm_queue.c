@@ -14,6 +14,7 @@
 #include <unistd.h>
 #include "shm_queue.h"
 #include "opt_time.h"
+#include "log.h"
 
 #define TOKEN_NO_DATA    0
 #define TOKEN_SKIPPED    0xdb030000 // token to mark the node is skipped
@@ -318,7 +319,7 @@ static char *attach_shm(long iKey, long iSize, int *bCreate)
 
 	if((shmid=shmget(iKey, 0, 0)) < 0)
 	{
-		printf("shmget(key=%ld, size=%ld): %s\n", iKey, iSize, strerror(errno));
+		logdbg("shmget(key=%ld, size=%ld): %s\n", iKey, iSize, strerror(errno));
 		if(!creating || (shmid=shmget(iKey, iSize, 0666|IPC_CREAT)) < 0)
 		{
 			return NULL;
@@ -331,12 +332,12 @@ static char *attach_shm(long iKey, long iSize, int *bCreate)
 		struct shmid_ds ds;
 		if(shmctl(shmid, IPC_STAT, &ds) < 0)
 		{
-			printf("shmctl(key=%ld): %s\n", iKey, strerror(errno));
+			logdbg("shmctl(key=%ld): %s\n", iKey, strerror(errno));
 			return NULL;
 		}
 		if(ds.shm_segsz != iSize)
 		{
-			printf("shm key=%ld size mismatched(existing %u, creating %ld), remove and try again\n", iKey, ds.shm_segsz, iSize);
+			logdbg("shm key=%ld size mismatched(existing %u, creating %ld), remove and try again\n", iKey, ds.shm_segsz, iSize);
 			if(shmctl(shmid, IPC_RMID, NULL))
 			{
 				perror("shm rm");
@@ -385,7 +386,7 @@ static struct sq_head_t *open_shm_queue(long shm_key, long ele_size, long ele_co
 		allocate_size = sizeof(struct sq_head_t) + SQ_NODE_SIZE_ELEMENT(ele_size)*(ele_count+1);
 		// Align to 4MB boundary
 		allocate_size = (allocate_size + (4UL<<20) - 1) & (~((4UL<<20)-1));
-		printf("shm size needed for queue - %lu.\n", allocate_size);
+		logdbg("shm size needed for queue - %lu.\n", allocate_size);
 	}
 	else
 	{
@@ -408,9 +409,9 @@ static struct sq_head_t *open_shm_queue(long shm_key, long ele_size, long ele_co
 	{
 		if(shm->ele_size!=ele_size || shm->ele_count!=ele_count)
 		{
-			printf("shm parameters mismatched: \n");
-			printf("    given:  ele_size=%ld, ele_count=%ld\n", ele_size, ele_count);
-			printf("    in shm: ele_size=%d, ele_count=%d\n", shm->ele_size, shm->ele_count);
+			logdbg("shm parameters mismatched: \n");
+			logdbg("    given:  ele_size=%ld, ele_count=%ld\n", ele_size, ele_count);
+			logdbg("    in shm: ele_size=%d, ele_count=%d\n", shm->ele_size, shm->ele_count);
 			shmdt(shm);
 			return NULL;
 		}
@@ -434,10 +435,10 @@ static int sq_set_sigparam(struct sq_head_t *sq, int sig_ele_num, int sig_proc_n
 	if(sq->pidnum>0) // print the registered pids
 	{
 		int i;
-		printf("Registered pids: %u", (uint32_t)sq->pidset[0]);
+		logdbg("Registered pids: %u", (uint32_t)sq->pidset[0]);
 		for(i=1; i<sq->pidnum; i++)
-			printf(", %u", (uint32_t)sq->pidset[i]);
-		printf("\n");
+			logdbg(", %u", (uint32_t)sq->pidset[i]);
+		logdbg("\n");
 	}
 
 	return 0;
@@ -626,7 +627,7 @@ int sq_put(struct shm_queue *sq, void *data, int datalen)
 		break;
 	}
 
-//	printf("sig_node_num=%d, used_nodes=%d, sig_process_num=%d\n", queue->sig_node_num, SQ_USED_NODES(queue), queue->sig_process_num);
+//	logdbg("sig_node_num=%d, used_nodes=%d, sig_process_num=%d\n", queue->sig_node_num, SQ_USED_NODES(queue), queue->sig_process_num);
 	// now signal the reader wait on queue
 	if(queue->sig_node_num && SQ_USED_NODES(queue)>=queue->sig_node_num) // element num reached
 	{
@@ -783,13 +784,13 @@ void test_put(struct shm_queue *queue, int proc_count, int count, char *msg)
 		sprintf(m, "[%d:%d] %s", pid, i, msg);
 		if(sq_put(queue, m, strlen(m))<0)
 		{
-			printf("put msg[%d] failed: %s\n", i, sq_errorstr(queue));
+			logdbg("put msg[%d] failed: %s\n", i, sq_errorstr(queue));
 			return;
 		}
 	}
 	if(pid) exit(0);
 	while(wait(NULL)>0);
-	printf("put successfully\n");
+	logdbg("put successfully\n");
 }
 
 void test_get(struct shm_queue *queue, int proc_count, int count)
@@ -811,7 +812,7 @@ void test_get(struct shm_queue *queue, int proc_count, int count)
 		// Note: each process has a uniq event fd, which is bond to process id
 		// If your server forks several processes, this function should be called after fork()
 		int event_fd = sq_get_eventfd(queue);
-		printf("child %d event_fd=%d\n", pid, event_fd);
+		logdbg("child %d event_fd=%d\n", pid, event_fd);
 
 		for(i=0; i<count; i++)
 		{
@@ -827,7 +828,7 @@ void test_get(struct shm_queue *queue, int proc_count, int count)
 			sq_sigoff(queue); // no longer needs signal
 			if(ret<0)
 			{
-				printf("select failed: %s\n", strerror(errno));
+				logdbg("select failed: %s\n", strerror(errno));
 				continue;
 			}
 
@@ -838,7 +839,7 @@ void test_get(struct shm_queue *queue, int proc_count, int count)
 			int l = sq_get(queue, m, sizeof(m), &tv);
 			if(l<0)
 			{
-				printf("sq_get failed: %s\n", sq_errorstr(queue));
+				logdbg("sq_get failed: %s\n", sq_errorstr(queue));
 				break;
 			}
 			if(l==0)// no data
@@ -849,7 +850,7 @@ void test_get(struct shm_queue *queue, int proc_count, int count)
 			// if we are able to retrieve data from queue, always
 			// try it without sleeping
 			m[l] = 0;
-			printf("pid[%d] msg[%d] len[%d]: %s\n", pid, i, l, m);
+			logdbg("pid[%d] msg[%d] len[%d]: %s\n", pid, i, l, m);
 		}
 		exit(0);
 	}
@@ -865,7 +866,7 @@ void press_test(struct shm_queue *queue, uint32_t record_count, uint32_t record_
 		while(put_count<record_count && sq_put(queue, m, record_size)==0) put_count ++;
 		while(sq_get(queue, m, sizeof(m), &tv)>0) get_count ++;
 	}
-	printf("put %u, get %u finished\n", put_count, get_count);
+	logdbg("put %u, get %u finished\n", put_count, get_count);
 }
 
 int main(int argc, char *argv[])
@@ -876,11 +877,11 @@ int main(int argc, char *argv[])
 	if(argc<3)
 	{
 badarg:
-		printf("usage: \n");
-		printf("     %s open <key>\n", argv[0]);
-		printf("     %s create <key> <element_size> <element_count>\n", argv[0]);
-		printf("     %s press <key> <record_count> <record_size>\n", argv[0]);
-		printf("\n");
+		logdbg("usage: \n");
+		logdbg("     %s open <key>\n", argv[0]);
+		logdbg("     %s create <key> <element_size> <element_count>\n", argv[0]);
+		logdbg("     %s press <key> <record_count> <record_size>\n", argv[0]);
+		logdbg("\n");
 		return -1;
 	}
 
@@ -904,7 +905,7 @@ badarg:
 
 	if(queue==NULL)
 	{
-		printf("failed to open shm queue: %s\n", sq_errorstr(NULL));
+		logdbg("failed to open shm queue: %s\n", sq_errorstr(NULL));
 		return -1;
 	}
 
@@ -918,11 +919,11 @@ badarg:
 	while(1)
 	{
 		static char cmd[1024*1024];
-		printf("available commands: \n");
-		printf("  put <concurrent_proc_count> <msg_count> <msg>\n");
-		printf("  get <concurrent_proc_count> <msg_count>\n");
-		printf("  quit\n");
-		printf("cmd>"); fflush(stdout);
+		logdbg("available commands: \n");
+		logdbg("  put <concurrent_proc_count> <msg_count> <msg>\n");
+		logdbg("  get <concurrent_proc_count> <msg_count>\n");
+		logdbg("  quit\n");
+		logdbg("cmd>"); fflush(stdout);
 		if(gets(cmd)==NULL)
 			return 0;
 		if(strncmp(cmd, "put ", 4)==0)

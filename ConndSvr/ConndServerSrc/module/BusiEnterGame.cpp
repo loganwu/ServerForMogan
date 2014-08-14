@@ -4,6 +4,7 @@
 #include "SingletonHolder.h"
 #include "log.h"
 #include "RoleInfo.h"
+#include "ShmqWrapper.h"
 
 using namespace Connd::Protocol;
 using namespace Connd::Data;
@@ -22,6 +23,8 @@ int BusiEnterGame::OnLogin( ConndMsg& stMsg )
 	const CSLoginData &stData = stMsg.stGSPkg.body().cslogindata();
 	int iUin = stData.user().qq();
 	// int iRoleId = GenRoleIdMap(iUin);
+	char test[64]="Hello It's me";
+	SingletonHolder<ShmqWrapper>::Instance()->OnWrite(test,64);
 
 	SingletonHolder<ProtocalSys>::Instance()->SendLoginInfo(stMsg);
 

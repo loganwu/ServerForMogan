@@ -46,7 +46,7 @@ int ShmqWrapper::InitConsumer( int iKey )
 	return 0;
 }
 
-int ShmqWrapper::Onwrite( const char* pData, int iSize )
+int ShmqWrapper::OnWrite( const char* pData, int iSize )
 {
 	if(sq_put(m_pShmQueue, (void *)pData, iSize) != 0)
 
@@ -90,5 +90,15 @@ int ShmqWrapper::OnRead( const char* pData, int iSize )
 			return len;
 		}
 	}
+}
+
+int ShmqWrapper::GetUsage()
+{
+	return sq_get_usage(m_pShmQueue);
+}
+
+int ShmqWrapper::GetUsedBlocks()
+{
+	return sq_get_used_blocks(m_pShmQueue);
 }
 
