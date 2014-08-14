@@ -16,7 +16,10 @@ ShmqWrapper::ShmqWrapper()
 
 ShmqWrapper::~ShmqWrapper()
 {
-
+	if (m_pShmQueue)
+	{
+		sq_destroy(m_pShmQueue);
+	}
 }
 
 int ShmqWrapper::InitProducer( int iKey )
