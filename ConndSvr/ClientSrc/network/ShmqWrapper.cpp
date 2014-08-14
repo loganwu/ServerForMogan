@@ -4,7 +4,6 @@
 #include <unistd.h>
 
 #include "ShmqWrapper.h"
-#include "SingletonHolder.h"
 #include "shm_queue.h"
 #include "log.h"
 

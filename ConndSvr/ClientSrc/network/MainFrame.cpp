@@ -11,7 +11,7 @@ int main(int argc, char**argv)
 	const char sIP[] = "127.0.0.1";
 	int iPort = 9999;
 	char buff[128] = {0};
-	int iLen = 0;
+	int iLen = 128;
 
 	stNetWork.InitSock(sIP,iPort);
 	stNetWork.SendMsg();
