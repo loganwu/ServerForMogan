@@ -21,10 +21,10 @@ ShmqWrapper::~ShmqWrapper()
 	}
 }
 
-int ShmqWrapper::InitProducer( int iKey )
+int ShmqWrapper::InitProducer( int iKey,int iThreshold)
 {
 	m_pShmQueue = NULL;
-	m_pShmQueue = sq_create(iKey, ELEMENT_SIZE, ELEMENT_COUNT, 1, 1);
+	m_pShmQueue = sq_create(iKey, ELEMENT_SIZE, ELEMENT_COUNT, iThreshold, 1);
 	if (!m_pShmQueue)
 	{
 		logerr("shm queue InitProducer failure: %s\n",sq_errorstr(NULL));
@@ -56,7 +56,7 @@ int ShmqWrapper::OnWrite( const char* pData, int iSize )
 	return 0;
 }
 
-int ShmqWrapper::OnReadBlock( const char* pData, int iSize )
+int ShmqWrapper::OnReadBlock( const char* pData, int iSize, int iTimeOut)
 {
 	int event_fd = sq_get_eventfd(m_pShmQueue);
 	struct timeval tv;
@@ -66,20 +66,33 @@ int ShmqWrapper::OnReadBlock( const char* pData, int iSize )
 		fd_set fdset;
 		FD_ZERO(&fdset);
 		FD_SET(event_fd, &fdset);
-		struct timeval to = {1, 0}; // 1s
+		struct timeval to = {iTimeOut, 0}; // 1s
 		sq_sigon(m_pShmQueue); // now we are entering into sleeping sys call
 		int ret = select(event_fd+1, &fdset, NULL, NULL, &to);
 		sq_sigoff(m_pShmQueue); // no longer needs signal
 		if(ret<0)
 		{
-			continue;// error
+			if (!(errno == EINTR || errno==EAGAIN)) // error
+			{
+				logerr("OnReadBlock select error\n");
+			}
+			else
+			{
+				logdbg("OnReadBlock select Intterupt or try again\n");
+			}
+			continue;
+		}
+		else if (ret == 0) //timeout
+		{
+			logdbg("OnReadBlock time out\n");
+			return 0;
 		}
 		if(FD_ISSET(event_fd, &fdset)) 
 			sq_consume_event(m_pShmQueue);
 		int len = sq_get(m_pShmQueue, (void*)pData, iSize,&tv);
 		if(len<0) // read failure
 		{
-			logdbg("ShmRead Failuer:%s\n",sq_errorstr(m_pShmQueue));
+			logerr("ShmRead Failuer:%s\n",sq_errorstr(m_pShmQueue));
 		}
 		else if(len==0) // empty
 		{

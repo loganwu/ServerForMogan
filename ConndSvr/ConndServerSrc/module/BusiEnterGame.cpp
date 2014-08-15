@@ -24,7 +24,7 @@ int BusiEnterGame::OnLogin( ConndMsg& stMsg )
 	int iUin = stData.user().qq();
 	// int iRoleId = GenRoleIdMap(iUin);
 	char test[64]="Hello It's me";
-	SingletonHolder<ShmqWrapper>::Instance()->OnWrite(test,64);
+	//SingletonHolder<ShmqWrapper>::Instance()->OnWrite(test,64);
 
 	SingletonHolder<ProtocalSys>::Instance()->SendLoginInfo(stMsg);
 
