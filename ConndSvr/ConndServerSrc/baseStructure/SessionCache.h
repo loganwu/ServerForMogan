@@ -1,3 +1,8 @@
+/*
+stack list:
+@size session number
+notice: sessionId limit(1~ size)
+*/
 #ifndef  SESSIONCACHE_INC
 #define  SESSIONCACHE_INC
 
@@ -192,5 +197,4 @@ int SessionCache<T,size>::Del(int iSessionId)
     return -1;
 }
 #endif   /* ----- #ifndef SESSIONCACHE_INC  ----- */
-/* vi:set ts=4: */ 
 

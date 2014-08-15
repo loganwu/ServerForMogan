@@ -1,3 +1,8 @@
+/*
+Hash table:
+@hashsize buckets number 
+@size  total elements number 
+*/
 #include "CacheDef.h"
 #include <stdlib.h>
 #include <stdint.h>
