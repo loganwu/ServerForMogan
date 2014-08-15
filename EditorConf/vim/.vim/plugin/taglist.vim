@@ -1345,6 +1345,7 @@ function! s:Tlist_Window_Zoom()
         " Restore the window back to the previous size
         if g:Tlist_Use_Horiz_Window
             exe 'resize ' . g:Tlist_WinHeight
+            exec('resize '.15)
         else
             exe 'vert resize ' . g:Tlist_WinWidth
         endif
@@ -1359,6 +1360,7 @@ function! s:Tlist_Window_Zoom()
         endif
         let s:tlist_win_maximized = 1
     endif
+
 endfunction
 
 " Tlist_Ballon_Expr

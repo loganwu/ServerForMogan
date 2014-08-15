@@ -268,6 +268,10 @@ set autowrite
 set ruler                   " ´ò¿ª×´Ì¬À¸±ê³ß
 "set backspace delete enable
 set backspace=indent,eol,start
+let g:C_AuthorName='loganwu'
+let g:C_AuthorRef = 'linux' 
+let g:C_Email = 'loganwu@tencent.com'    
+let g:C_Company = 'tencent'  
 " /etc/vimrc ends here
 
 
