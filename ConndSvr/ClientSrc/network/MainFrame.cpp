@@ -18,7 +18,7 @@ int main(int argc, char**argv)
 	stShmq.InitConsumer(20140814);
 	sleep(1);
 	stNetWork.RecMsg();
-	stShmq.OnRead(buff,iLen);
+	stShmq.OnReadNonBlock(buff,iLen);
 	printf("Read from shmq buf: %s\n",buff);
 // 	while(stNetWork.RecMsg() < 0)
 // 	{

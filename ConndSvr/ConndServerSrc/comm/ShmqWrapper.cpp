@@ -56,7 +56,7 @@ int ShmqWrapper::OnWrite( const char* pData, int iSize )
 	return 0;
 }
 
-int ShmqWrapper::OnRead( const char* pData, int iSize )
+int ShmqWrapper::OnReadBlock( const char* pData, int iSize )
 {
 	int event_fd = sq_get_eventfd(m_pShmQueue);
 	struct timeval tv;
@@ -77,8 +77,9 @@ int ShmqWrapper::OnRead( const char* pData, int iSize )
 		if(FD_ISSET(event_fd, &fdset)) 
 			sq_consume_event(m_pShmQueue);
 		int len = sq_get(m_pShmQueue, (void*)pData, iSize,&tv);
-		if(len<0) // ¶ÁÊ§°Ü
+		if(len<0) // read failure
 		{
+			logdbg("ShmRead Failuer:%s\n",sq_errorstr(m_pShmQueue));
 		}
 		else if(len==0) // empty
 		{
@@ -92,6 +93,25 @@ int ShmqWrapper::OnRead( const char* pData, int iSize )
 	}
 }
 
+int ShmqWrapper::OnReadNonBlock( const char* pData, int iSize )
+{
+	struct timeval tv;
+	int len = sq_get(m_pShmQueue, (void*)pData, iSize,&tv);
+	if(len<0) // read failure
+	{
+		logdbg("ShmRead Failuer:%s\n",sq_errorstr(m_pShmQueue));
+	}
+	else if(len==0) // empty
+	{
+		return 0;
+	}
+	else // get data
+	{
+		logdbg("Receive data: len %d\n",len);
+		return len;
+	}
+}
+
 int ShmqWrapper::GetUsage()
 {
 	return sq_get_usage(m_pShmQueue);
@@ -101,4 +121,6 @@ int ShmqWrapper::GetUsedBlocks()
 {
 	return sq_get_used_blocks(m_pShmQueue);
 }
+
+
 

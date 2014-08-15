@@ -11,7 +11,8 @@ public:
 	int InitProducer(int iKey);
 	int InitConsumer(int iKey);
 	int OnWrite(const char* pData, int iSize);
-	int OnRead(const char* pData, int iSize);
+	int OnReadBlock(const char* pData, int iSize); // persist read
+	int OnReadNonBlock(const char* pData, int iSize); // nonblocking read
 	int GetUsage();
 	int GetUsedBlocks();
 private:
