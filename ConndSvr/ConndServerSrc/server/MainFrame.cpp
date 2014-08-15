@@ -33,7 +33,7 @@ GameConf g_stConf;
 
 int Init()
 {
-	g_stConf.iShmqueKey = 20140814;
+	g_stConf.iShmqueKey = 0x20140814;
 	_INIT_DEF(NetworkWrapper);
 	_INIT_DEF(MemMgr);
 	if(SingletonHolder<ShmqWrapper>::Instance()->InitProducer(g_stConf.iShmqueKey,1) != 0)

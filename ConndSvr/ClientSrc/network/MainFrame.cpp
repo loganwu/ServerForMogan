@@ -15,7 +15,7 @@ int main(int argc, char**argv)
 
 	stNetWork.InitSock(sIP,iPort);
 	stNetWork.SendMsg();
-	stShmq.InitConsumer(20140814);
+	stShmq.InitConsumer(0x20140814);
 	sleep(1);
 	stNetWork.RecMsg();
 	stShmq.OnReadBlock(buff,iLen,5);
