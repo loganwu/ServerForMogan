@@ -3,7 +3,7 @@
  *
  *       Filename:  vectorExp.cpp
  *
- *    Description:  
+ *    Description: Vector example 
  *
  *        Version:  1.0
  *        Created:  11/11/2015 01:00:43 PM CST
