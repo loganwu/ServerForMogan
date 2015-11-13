@@ -20,6 +20,7 @@
 #define  LLIST_INC
 
 #include <iterator>
+#include <iostream>
 
 template <class T>
 struct _list_node
@@ -40,15 +41,11 @@ public:
 	typedef _list_node<T> list_node;
 	typedef list_node* link_type;
 public:
-	LList():pMB(0){}
-	~LList(){}
-
-	class iterator:public std::iterator<std::bidirectional_iterator_tag,T>
+	struct iterator:public std::iterator<std::bidirectional_iterator_tag,T>
 	{
-	public:
 		iterator():node(0){}
 		iterator(link_type pMb):node(pMb){}
-	public:
+
 		T& operator*()
 		{
 			return node->data;
@@ -80,27 +77,21 @@ public:
 			--*this;
 			return temp;
 		}
-		iterator begin() const
-		{
-			return iterator(pMB->next);  
-		}
-		iterator end() const
-		{
-			return iterator(pMB);  
-		}
 
-		bool operator==(iterator& it)
+		bool operator==(iterator& it) const
 		{
 			return (node == it.node);
 		}
-		bool operator!=(iterator& it)
+		bool operator!=(iterator& it) const
 		{
 			return (node != it.node);
 		}
-	private:
+
 		link_type node;
 	
 	}; // class iterator define
+
+
 public:
 
 		iterator begin() const
@@ -111,8 +102,35 @@ public:
 		{
 			return iterator(pMB);  
 		}
+		
+	LList()
+	{
+		pMB = new list_node;
+		pMB->next = pMB;
+		pMB->prev = pMB;
+	}
+	~LList(){}
+
+	iterator insert(iterator position, const T& x)
+	{
+		link_type temp_node = create_node(x);
+		temp_node->next = position.node;
+		temp_node->prev = position.node->prev;
+		(position.node->prev)->next = temp_node;
+		position.node->prev= temp_node;
+		return iterator(temp_node);
+	}
 
 
+private:
+
+	link_type create_node(const T& data)
+	{
+		link_type p = new list_node;
+		p->data = data;
+	//	construct(&p->data,data);
+		return p;
+	}
 
 private:
 	link_type pMB;	
