@@ -86,8 +86,6 @@ struct list_iterator:public std::iterator<std::bidirectional_iterator_tag,T>
 	
 }; // class list_iterator define
 
-
-
 template<class T>
 class LList
 {
@@ -143,19 +141,9 @@ public:
 		return;
 	}
 	void clear();
-	iterator erase(iterator pos)
-	{
-		if(pos == end())
-			return end();
-		link_type preNode = (link_type)(pos.node->prev);
-		link_type nextNode = (link_type)(pos.node->next);
 
-		preNode->next = nextNode;
-		nextNode->prev = preNode;
-		delete pos.node;
-
-		return iterator(nextNode);
-	}
+	iterator erase(iterator pos);
+	iterator transfer(iterator pos,iterator first,iterator last);
 
 private:
 
@@ -185,26 +173,30 @@ void  LList<T>::clear()
 		delete pos;
 		pos = nextNode;
 	}
-
 	init();
-
 	return;
 }
 
-// template<class T>
-// iterator LList<T>::erase(iterator pos)
-// {
-// 	if(pos == end())
-// 		return end();
-// 	link_type preNode = (link_type)(pos.node->prev);
-// 	link_type nextNode = (link_type)(pos.node->next);
-// 
-// 	preNode->next = nextNode;
-// 	nextNode->prev = preNode;
-// 	delete pos.node;
-// 
-// 	return iterator(nextNode);
-// }
+template<class T>
+list_iterator<T> LList<T>::erase(iterator pos)
+{
+	if(pos == end())
+		return end();
+	link_type preNode = (link_type)(pos.node->prev);
+	link_type nextNode = (link_type)(pos.node->next);
+
+	preNode->next = nextNode;
+	nextNode->prev = preNode;
+	delete pos.node;
+
+	return iterator(nextNode);
+}
+
+template <class T>
+list_iterator<T>  LList<T>::transfer(iterator pos,iterator first,iterator last)
+{
+	return iterator(0);
+}
 
 #endif   /* ----- #ifndef LLIST_INC  ----- */
 

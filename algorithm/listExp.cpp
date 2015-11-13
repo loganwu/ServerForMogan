@@ -26,25 +26,23 @@ int main()
 	LList<int> llist;
 	LList<int>::iterator it = llist.begin();
 	it  = llist.insert(it,1);
-	cout<<it.node<<endl;
-	cout<<"----------------"<<endl;
 	it  = llist.insert(it,2);
-	cout<<it.node<<endl;
-	cout<<"----------------"<<endl;
 	it  = llist.insert(it,3);
-	cout<<it.node<<endl;
-	cout<<"----------------"<<endl;
 	it = llist.begin();
-	cout<<"begin"<<it.node<<endl;
-	cout<<"----------------"<<endl;
-	it = llist.end();
-	cout<<"end"<<it.node<<endl;
-
-	it = llist.begin();
-	cout<<it.node<<endl;
-
+	cout<<"--------insert-------------"<<endl;
 	for(;it != llist.end();it++)
 		cout<<*it<<endl;
 	
+	llist.clear();
+
+	llist.push_back(11);
+	llist.push_back(12);
+	llist.push_back(13);
+	llist.erase(llist.begin());
+	cout<<"--------push_back-------------"<<endl;
+	for(it=llist.begin();it != llist.end();it++)
+		cout<<*it<<endl;
+	cout<<"--------transfer-------------"<<endl;
+	llist.transfer(it,it,it);
 	return 0;
 }
