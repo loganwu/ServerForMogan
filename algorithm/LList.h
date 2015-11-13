@@ -32,59 +32,61 @@ struct _list_node
 };
 
 template <class T>
-	struct list_iterator:public std::iterator<std::bidirectional_iterator_tag,T>
+struct list_iterator:public std::iterator<std::bidirectional_iterator_tag,T>
+{
+
+	typedef list_iterator<T> self;
+	typedef _list_node<T>* link_type;
+	list_iterator():node(0){}
+	explicit list_iterator(link_type pLink):node(pLink){}
+	list_iterator(const self& x):node(x.node){}
+
+	T& operator*()
 	{
-
-		typedef list_iterator<T> self;
-		typedef _list_node<T>* link_type;
-		list_iterator():node(0){}
-		explicit list_iterator(link_type pLink):node(pLink){}
-		list_iterator(const self& x):node(x.node){}
-
-		T& operator*()
-		{
-			return node->data;
-		}
-		T* operator->()
-		{
-			return &(node->data);
-		}
+		return node->data;
+	}
+	T* operator->()
+	{
+		return &(node->data);
+	}
 		
-		self& operator++()
-		{
-			node = (link_type)(node->next);
-			return *this;
-		}
-		self operator++(int)
-		{
-			self temp = *this;
-			++*this;
-			return temp;
-		}
-		self& operator--()
-		{
-			node = (link_type)(node->prev);
-			return *this;
-		}
-		self operator--(int)
-		{
-			self temp = *this;
-			--*this;
-			return temp;
-		}
+	self& operator++()
+	{
+		node = (link_type)(node->next);
+		return *this;
+	}
+	self operator++(int)
+	{
+		self temp = *this;
+		++*this;
+		return temp;
+	}
+	self& operator--()
+	{
+		node = (link_type)(node->prev);
+		return *this;
+	}
+	self operator--(int)
+	{
+		self temp = *this;
+		--*this;
+		return temp;
+	}
 
-		bool operator==(const self& it) const
-		{
-			return (node == it.node);
-		}
-		bool operator!=(const self& it) const
-		{
-			return (node != it.node);
-		}
+	bool operator==(const self& it) const
+	{
+		return (node == it.node);
+	}
+	bool operator!=(const self& it) const
+	{
+		return (node != it.node);
+	}
 
-		link_type node;
+	link_type node;
 	
-	}; // class list_iterator define
+}; // class list_iterator define
+
+
 
 template<class T>
 class LList
@@ -94,7 +96,7 @@ public:
 	typedef int size_type;
 	typedef T& reference;
 	typedef _list_node<T> list_node;
-	typedef list_node* link_type;
+	typedef _list_node<T>* link_type;
 	typedef list_iterator<T> iterator;
 
 public:
@@ -108,13 +110,22 @@ public:
 		return iterator(pMB);  
 	}
 		
-	LList()
+	void init()
 	{
-		pMB = new list_node;
+
 		pMB->next = pMB;
 		pMB->prev = pMB;
 	}
-	~LList(){}
+	LList()
+	{
+		pMB = new list_node;
+		init();
+	}
+	~LList()
+	{
+		if(pMB != 0)
+			delete pMB;
+	}
 
 	iterator insert(iterator position, const T& x)
 	{
@@ -125,7 +136,26 @@ public:
 		position.node->prev= temp_node;
 		return iterator(temp_node);
 	}
+	
+	void push_back(const T& x)
+	{
+		insert(end(),x);
+		return;
+	}
+	void clear();
+	iterator erase(iterator pos)
+	{
+		if(pos == end())
+			return end();
+		link_type preNode = (link_type)(pos.node->prev);
+		link_type nextNode = (link_type)(pos.node->next);
 
+		preNode->next = nextNode;
+		nextNode->prev = preNode;
+		delete pos.node;
+
+		return iterator(nextNode);
+	}
 
 private:
 
@@ -140,5 +170,41 @@ private:
 private:
 	link_type pMB;	
 };
+
+template<class T>
+void  LList<T>::clear()
+{
+	link_type pos = pMB->next;//begin
+	while(pos != end().node) //end == pMB
+	{
+		link_type preNode = (link_type)(pos->prev);
+		link_type nextNode = (link_type)(pos->next);
+
+		preNode->next = nextNode;
+		nextNode->prev = preNode;
+		delete pos;
+		pos = nextNode;
+	}
+
+	init();
+
+	return;
+}
+
+// template<class T>
+// iterator LList<T>::erase(iterator pos)
+// {
+// 	if(pos == end())
+// 		return end();
+// 	link_type preNode = (link_type)(pos.node->prev);
+// 	link_type nextNode = (link_type)(pos.node->next);
+// 
+// 	preNode->next = nextNode;
+// 	nextNode->prev = preNode;
+// 	delete pos.node;
+// 
+// 	return iterator(nextNode);
+// }
+
 #endif   /* ----- #ifndef LLIST_INC  ----- */
 
