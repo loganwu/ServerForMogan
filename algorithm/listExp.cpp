@@ -26,22 +26,25 @@ int main()
 	LList<int> llist;
 	LList<int>::iterator it = llist.begin();
 	it  = llist.insert(it,1);
-	cout<<*it<<endl;
+	cout<<it.node<<endl;
 	cout<<"----------------"<<endl;
 	it  = llist.insert(it,2);
-	cout<<*it<<endl;
+	cout<<it.node<<endl;
 	cout<<"----------------"<<endl;
 	it  = llist.insert(it,3);
-	cout<<*it<<endl;
+	cout<<it.node<<endl;
 	cout<<"----------------"<<endl;
 	it = llist.begin();
-	cout<<"begin"<<*it<<endl;
+	cout<<"begin"<<it.node<<endl;
 	cout<<"----------------"<<endl;
 	it = llist.end();
-	cout<<"end"<<*it<<endl;
-	for(; it != llist.end();it++);
-	{
+	cout<<"end"<<it.node<<endl;
+
+	it = llist.begin();
+	cout<<it.node<<endl;
+
+	for(;it != llist.end();it++)
 		cout<<*it<<endl;
-	}
+	
 	return 0;
 }

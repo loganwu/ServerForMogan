@@ -31,20 +31,15 @@ struct _list_node
 	T data;
 };
 
-template<class T>
-class LList
-{
-public:
-	typedef T value_type;
-	typedef int size_type;
-	typedef T& reference;
-	typedef _list_node<T> list_node;
-	typedef list_node* link_type;
-public:
-	struct iterator:public std::iterator<std::bidirectional_iterator_tag,T>
+template <class T>
+	struct list_iterator:public std::iterator<std::bidirectional_iterator_tag,T>
 	{
-		iterator():node(0){}
-		iterator(link_type pMb):node(pMb){}
+
+		typedef list_iterator<T> self;
+		typedef _list_node<T>* link_type;
+		list_iterator():node(0){}
+		explicit list_iterator(link_type pLink):node(pLink){}
+		list_iterator(const self& x):node(x.node){}
 
 		T& operator*()
 		{
@@ -55,53 +50,63 @@ public:
 			return &(node->data);
 		}
 		
-		iterator& operator++()
+		self& operator++()
 		{
 			node = (link_type)(node->next);
 			return *this;
 		}
-		iterator operator++(int)
+		self operator++(int)
 		{
-			iterator temp = *this;
+			self temp = *this;
 			++*this;
 			return temp;
 		}
-		iterator& operator--()
+		self& operator--()
 		{
 			node = (link_type)(node->prev);
 			return *this;
 		}
-		iterator operator--(int)
+		self operator--(int)
 		{
-			iterator temp = *this;
+			self temp = *this;
 			--*this;
 			return temp;
 		}
 
-		bool operator==(iterator& it) const
+		bool operator==(const self& it) const
 		{
 			return (node == it.node);
 		}
-		bool operator!=(iterator& it) const
+		bool operator!=(const self& it) const
 		{
 			return (node != it.node);
 		}
 
 		link_type node;
 	
-	}; // class iterator define
+	}; // class list_iterator define
 
+template<class T>
+class LList
+{
+public:
+	typedef T value_type;
+	typedef int size_type;
+	typedef T& reference;
+	typedef _list_node<T> list_node;
+	typedef list_node* link_type;
+	typedef list_iterator<T> iterator;
 
 public:
 
-		iterator begin() const
-		{
-			return iterator(pMB->next);  
-		}
-		iterator end() const
-		{
-			return iterator(pMB);  
-		}
+	iterator begin() const
+	{
+		return iterator(pMB->next);  
+	}
+	iterator end() const
+	{
+		return iterator(pMB);  
+	}
 		
 	LList()
 	{
