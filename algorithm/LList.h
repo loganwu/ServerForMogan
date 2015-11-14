@@ -39,8 +39,13 @@ struct list_iterator:public std::iterator<std::bidirectional_iterator_tag,T>
 	typedef _list_node<T>* link_type;
 	list_iterator():node(0){}
 	explicit list_iterator(link_type pLink):node(pLink){}
-	list_iterator(const self& x):node(x.node){}
-
+	list_iterator(const self& x):node(x.node){/*std::cout<<"iterator copy constructor"<<std::endl;*/}
+	self& operator=(const self& x)
+	{
+		node = x.node;
+		//std::cout<<"test operator="<<std::endl;
+		return *this;
+	}
 	T& operator*()
 	{
 		return node->data;
@@ -146,6 +151,7 @@ public:
 
 	iterator erase(iterator pos);
 	void transfer(iterator pos,iterator first,iterator last);
+	void reverse();
 
 private:
 
@@ -214,6 +220,18 @@ void  LList<T>::transfer(iterator pos,iterator first,iterator last)
 	 }
 	 
 	return ;
+}
+
+template <class T>
+void LList<T>::reverse()
+{
+	iterator cur = ++begin();
+	while(cur != end())
+	{
+		iterator last= cur;
+		transfer(begin(),cur,++last);
+		cur = last;;
+	}
 }
 
 #endif   /* ----- #ifndef LLIST_INC  ----- */

@@ -25,6 +25,9 @@ int main()
 
 	LList<int> llist;
 	LList<int>::iterator it = llist.begin();
+	LList<int>::iterator it2 = llist.end();
+	it2 = LList<int>::iterator(it);
+#if 1
 	it  = llist.insert(it,1);
 	it  = llist.insert(it,2);
 	it  = llist.insert(it,3);
@@ -46,13 +49,19 @@ int main()
 	cout<<"--------size-------------"<<llist.size()<<endl;
 	llist.push_back(14);
 	llist.push_back(15);
+	llist.push_back(16);
 	for(it=llist.begin();it != llist.end();it++)
 		cout<<*it<<endl;
 	cout<<"--------transfer-------------"<<llist.size()<<endl;
 	LList<int>::iterator first= ++llist.begin();
 	LList<int>::iterator last= llist.end();
-	llist.transfer(llist.begin(),first,last);
+	llist.transfer(++llist.begin(),++first,last);
 	for(it=llist.begin();it != llist.end();it++)
 		cout<<*it<<endl;
+	cout<<"--------reverse-------------"<<llist.size()<<endl;
+	llist.reverse();
+	for(it=llist.begin();it != llist.end();it++)
+		cout<<*it<<endl;
+#endif		
 	return 0;
 }
