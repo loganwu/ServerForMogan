@@ -4,45 +4,47 @@
 #include "NetworkWrapper.h"
 #include "SingletonHolder.h"
 #include "log.h"
+#include "MemMgr.h"
+#include "ShmqWrapper.h"
 
-
-#if 0
-void Tick(int sock, short event, void *arg)
+struct GameConf
 {
-	logdbg("Tick\n"); 
+	int iMemcacheKey;
+	int iSessionKey;
+	int iShmqueKey;
+	GameConf(){memset(this,0,sizeof(*this));}
+};
 
-	struct timeval tv;  
-	tv.tv_sec = 1;  
-	tv.tv_usec = 0;   
-	event_add((struct event*)arg, &tv);  
-}
+GameConf g_stConf;
 
-int AddTick()
-{
-	
-	struct timeval tv; 
-	struct event  *stTimeEvt = NULL;
-	tv.tv_sec = 1;  
-	tv.tv_usec = 0;
+#define _INIT_DEF(ClassName) do \
+{ \
+	if(SingletonHolder<ClassName>::Instance()->Init() != 0) \
+	{ \
+		logerr("%s init failure\n",#ClassName); \
+		return -1;\
+	} \
+	else \
+	{ \
+		logdbg("%s init success\n",#ClassName); \
+	} \
+} while (0);
 
-	if (!gstEvtBase)
-	{
-		logerr("gstEvtBase NULL");
-	}
-	stTimeEvt = evtimer_new(gstEvtBase,Tick, (void *)stTimeEvt);
-
-	if (!stTimeEvt || event_add(stTimeEvt, &tv)<0) 
-	{
-		logerr("Could not create/add a time event!\n");
-		return -1;
-	}
-	return 0;
-}
-#endif
 
 int Init()
 {
-	SingletonHolder<NetworkWrapper>::Instance()->Init();
+	g_stConf.iShmqueKey = 0x20140814;
+	_INIT_DEF(NetworkWrapper);
+	_INIT_DEF(MemMgr);
+	if(SingletonHolder<ShmqWrapper>::Instance()->InitProducer(g_stConf.iShmqueKey,1) != 0)
+	{
+		logerr("ShmqWrapper init failure\n");
+	}
+	else 
+	{ 
+		logdbg("ShmqWrapper init success[key %d]\n",g_stConf.iShmqueKey); 
+	} 
+
 	return 0;
 }
 

@@ -11,7 +11,7 @@
 
 include ../makefile.mk
 include ../BUILD_ROOT
-CFLAGS += -ggdb
+CFLAGS += -ggdb -DDEBUG
 OK = \\e[1m\\e[32m OK \\e[m
 FAILURE = \\e[1m\\e[31m FAILURE \\e[m
 .PHONY: all clean cleandep
@@ -49,7 +49,7 @@ sinclude $(SRCS:.cpp=.d)
 	rm -f $@.$$$$;
 
 $(GAME_BIN): $(OBJS) 
-	echo "${DIRS}" 
+	#echo "${LIBS}" 
 	@echo -ne Linking $(GAME_BIN) ... 
 	@$(CC) -o $(GAME_BIN) $(CFLAGS) $^ $(INCS) $(LIBS) && echo  -e $(OK) || echo -e $(FAILURE)
 

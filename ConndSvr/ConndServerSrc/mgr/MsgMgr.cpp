@@ -16,12 +16,16 @@ int MsgMgr::Init()
 {
 	GOOGLE_PROTOBUF_VERIFY_VERSION;
 	memset(m_sNetBuf,0,sizeof(m_sNetBuf));
+
+	return 0;
 }
 
 
 int MsgMgr::Clear()
 {
 	google::protobuf::ShutdownProtobufLibrary();
+
+	return 0;
 }
 
 
@@ -72,25 +76,33 @@ int MsgMgr::GetOneConndMsg(Session *pSession)
 	{
 		return -2;
 	}
+	m_stConndMsg.uCmdId = m_stConndMsg.stGSPkg.header().cmdid();
 	DumpMsg(m_stConndMsg.stGSPkg);
 
-	return 0;
+	return m_stMsgDispatcher.Dispatch(m_stConndMsg);
+
 }
 
 void MsgMgr::DumpMsg( Connd::Protocol::GSPkg& pkg )
 {
-	logdbg("cmdid %d version %d qq %d\n",pkg.header().cmdid(),pkg.header().version(),pkg.body().cslogindata().user().qq());
-	if (pkg.header().cmdid(),pkg.body().has_sclogindata())
-	{
-		logdbg("sclogindata exist\n");
-	}
-	else
-	{
-		logdbg("sclogindata NOT exist\n");
-	}
-	
-
+#ifdef DEBUG
+	logdbg("=====================================\n");
+	pkg.PrintDebugString();
+	logdbg("=====================================\n");
+#endif
 }
+
+int MsgMgr::OnSendPkg( Connd::Protocol::GSPkg &stPkg, Session &stSession)
+{
+	LOG_FUNCTION;
+	DumpMsg(stPkg);
+	if (EncodeMsg(stPkg,m_sNetBuf,stPkg.header().packagelen()))
+	{
+		return stSession.OnWrite(m_sNetBuf,stPkg.header().packagelen());
+	}
+	return 0;
+}
+
 
 
 

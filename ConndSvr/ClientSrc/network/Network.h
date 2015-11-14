@@ -13,6 +13,7 @@ public:
 	int InitSock(const char *szIp, const int iPort);
     
     int SendMsg();
+	int RecMsg();
     
     int GetSockFd()
     {

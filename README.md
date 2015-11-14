@@ -6,7 +6,6 @@ connect --> logicSVR--->Storage
 
 1. connect
 	use libevent
-	refrence fastapi
 2. logicSVR
 	Key point: load balance;High performance;overload protection;flexibly available;
 	reference attach server
@@ -16,4 +15,6 @@ connect --> logicSVR--->Storage
 4.data cache 
 	use unix shm,reference attach server
 	use memcache opensource
-5. global area global server
+5. data representation: google protobuf
+6. Game architecture: global area and global server, logically divide into single area
+7. Add some basical data structure: heap hash sort vector etc.
