@@ -32,7 +32,7 @@ int main()
 	cout<<"--------insert-------------"<<endl;
 	for(;it != llist.end();it++)
 		cout<<*it<<endl;
-	
+
 	llist.clear();
 
 	llist.push_back(11);
@@ -42,7 +42,17 @@ int main()
 	cout<<"--------push_back-------------"<<endl;
 	for(it=llist.begin();it != llist.end();it++)
 		cout<<*it<<endl;
-	cout<<"--------transfer-------------"<<endl;
-	llist.transfer(it,it,it);
+	llist.clear();
+	cout<<"--------size-------------"<<llist.size()<<endl;
+	llist.push_back(14);
+	llist.push_back(15);
+	for(it=llist.begin();it != llist.end();it++)
+		cout<<*it<<endl;
+	cout<<"--------transfer-------------"<<llist.size()<<endl;
+	LList<int>::iterator first= ++llist.begin();
+	LList<int>::iterator last= llist.end();
+	llist.transfer(llist.begin(),first,last);
+	for(it=llist.begin();it != llist.end();it++)
+		cout<<*it<<endl;
 	return 0;
 }

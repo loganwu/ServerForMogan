@@ -121,10 +121,12 @@ public:
 	}
 	~LList()
 	{
+		clear();
 		if(pMB != 0)
 			delete pMB;
 	}
-
+	bool empty(){return pMB== pMB->next;}
+	size_t  size(){return  distance(begin(),end());}
 	iterator insert(iterator position, const T& x)
 	{
 		link_type temp_node = create_node(x);
@@ -143,7 +145,7 @@ public:
 	void clear();
 
 	iterator erase(iterator pos);
-	iterator transfer(iterator pos,iterator first,iterator last);
+	void transfer(iterator pos,iterator first,iterator last);
 
 private:
 
@@ -193,9 +195,25 @@ list_iterator<T> LList<T>::erase(iterator pos)
 }
 
 template <class T>
-list_iterator<T>  LList<T>::transfer(iterator pos,iterator first,iterator last)
+void  LList<T>::transfer(iterator pos,iterator first,iterator last)
 {
-	return iterator(0);
+	 if (pos != last && pos != first)
+	 {
+		 link_type posPrev = pos.node->prev;
+		 link_type firstPrev = first.node->prev;
+
+		 //before pos two link
+		 posPrev->next = first.node;
+		 pos.node->prev= last.node->prev;
+		 //before first two link
+		 first.node->prev->next = last.node;
+		 first.node->prev= posPrev;
+		 //before last two link
+		 last.node->prev->next= pos.node;
+		 last.node->prev= pos.node;
+	 }
+	 
+	return ;
 }
 
 #endif   /* ----- #ifndef LLIST_INC  ----- */
