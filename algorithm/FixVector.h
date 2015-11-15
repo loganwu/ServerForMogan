@@ -124,16 +124,16 @@ typename FixVector<T,N>::iterator FixVector<T,N>::partition(iterator first, iter
 	while(low < high)
 	{
 		while(*low < tmp && low < high) low++;
-		std::swap(*low,*high);
 		while(*high > tmp && low < high) high--;
 		std::swap(*low,*high);
 	}
 	return low;
 }
+
 template <class T, int N>
 void FixVector<T,N>::_sort(iterator first, iterator last)
 {
-	if(first == last) return;
+	if(first >= last) return;
 	iterator mid = partition(first,last);
 	_sort(first,mid);
 	_sort(mid+1,last);
