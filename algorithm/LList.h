@@ -186,7 +186,7 @@ void  LList<T>::clear()
 }
 
 template<class T>
-list_iterator<T> LList<T>::erase(iterator pos)
+typename LList<T>::iterator LList<T>::erase(iterator pos)
 {
 	if(pos == end())
 		return end();
