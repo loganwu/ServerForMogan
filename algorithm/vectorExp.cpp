@@ -23,10 +23,10 @@ using namespace std;
 int main()
 {
 
-	FixVector<int,5>::iterator iter;
-	FixVector<int,5> vVector;
+	FixVector<int,50>::iterator iter;
+	FixVector<int,50> vVector;
 	vVector.push_back(1);
-	vVector.push_back(4);
+	vVector.push_back(0);
 	vVector.push_back(2);
 	cout<<"capacity "<<vVector.capacity()<<endl;
 	cout<<"size "<<vVector.size()<<endl;
@@ -36,6 +36,9 @@ int main()
 	}
 	vVector.pop_back();
 	vVector.push_back(3);
+//	vVector.push_back(33);
+//	vVector.push_back(34);
+//	vVector.push_back(14);
 	cout<<"capacity "<<vVector.capacity()<<endl;
 	cout<<"size "<<vVector.size()<<endl;
 	for(iter=vVector.begin();iter != vVector.end();iter++)
