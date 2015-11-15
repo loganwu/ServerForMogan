@@ -50,8 +50,8 @@ void qsort_recursive(int array[], int low, int high)
 {
 	if(low >= high) return;
 	int pos = partition(array,low,high);
-	qsort_nonrecursive(array,low,pos);
-	qsort_nonrecursive(array,pos+1,high);
+	qsort_recursive(array,low,pos);
+	qsort_recursive(array,pos+1,high);
 	return;
 }
 
@@ -59,6 +59,7 @@ int main()
 {
 	int iArr[6] = {11,29,3,48,5,1};
 	qsort_recursive(iArr,0,5);
+	//qsort_nonrecursive(iArr,0,5);
 	for(int i=0;i<6;i++)
 		std::cout<<iArr[i]<<std::endl;
 	return 0;

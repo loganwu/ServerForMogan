@@ -19,9 +19,9 @@ int main()
 {
 	IList s;
 
-	s.push_back(7);
-	s.push_back(6);
-	s.push_back(5);
+//	s.push_back(7);
+//	s.push_back(6);
+//	s.push_back(5);
 	s.push_back(4);
 	s.push_back(3);
 	s.push_back(2);
@@ -55,7 +55,7 @@ int main()
 				print(counter[i]);
 			}
 	}
-
+	cout<<"while over"<<endl;
 	for (int i = 1; i < fill; ++i)
 		counter[i].merge(counter[i - 1]);
 		s.swap(counter[fill - 1]);
