@@ -28,6 +28,10 @@ int main()
 	vVector.push_back(1);
 	vVector.push_back(0);
 	vVector.push_back(2);
-	Logan::push_heap(vVector.begin(),vVector.end());
+	vVector.push_back(5);
+	vVector.push_back(3);
+	std::make_heap(vVector.begin(),vVector.end());
+	for(FixVector<int,50>::iterator it = vVector.begin(); it != vVector.end();it++)
+		cout<<*it<<endl;
 	return 0;
 }
