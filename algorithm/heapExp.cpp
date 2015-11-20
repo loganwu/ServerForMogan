@@ -35,8 +35,11 @@ int main()
 		cout<<*it<<endl;
 	vVector.push_back(9);
 	cout<<"===================push heap 9======"<<endl;
-	std::push_heap(vVector.begin(),vVector.end());
+	Logan::push_heap(vVector.begin(),vVector.end());
 	for(FixVector<int,50>::iterator it = vVector.begin(); it != vVector.end();it++)
 		cout<<*it<<endl;
+	cout<<"===================pop heap======"<<endl;
+	Logan::pop_heap(vVector.begin(),vVector.end());
+	cout<<*vVector.back()<<endl;
 	return 0;
 }

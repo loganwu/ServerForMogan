@@ -47,9 +47,37 @@ namespace Logan
 		return;
 	}
 	
+	template < class RandomIt,class DistanceType, class ValueType>
+	inline void adjust_heap(RandomIt first, DistanceType hole, DistanceType len, ValueType value)
+	{
+		DistanceType top = hole;
+		DistanceType rChild = 2 * hole + 2;
+		while(rChild < len)
+		{
+			if(*(first+rChild) < *(first+rChild-1))
+				rChild--;
+			*(first+hole)= *(first+rChild);
+			hole = rChild;
+			rChild = 2 * rChild + 2;
+		}
+		if(rChild == len)
+		{
+			*(first+hole)= *(first+rChild);
+			hole = rChild - 1;	
+		}
+		push_heap(first,first+hole); //push value
+		return;
+	}
+
 	template < class RandomIt>
 	inline void pop_heap(RandomIt first, RandomIt last)
 	{
+		typedef typename std::iterator_traits<RandomIt>::value_type ValueType;
+		typedef typename std::iterator_traits<RandomIt>::difference_type DistanceType;
+		ValueType toPush = *(last -1 );
+		*(last - 1) = *first; // pop the first ele to last-1
+		//DistanceType hole = 0;
+		adjust_heap(first,0,last-first-1,toPush);
 		return;
 	}
 
