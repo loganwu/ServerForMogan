@@ -30,7 +30,12 @@ int main()
 	vVector.push_back(2);
 	vVector.push_back(5);
 	vVector.push_back(3);
-	std::make_heap(vVector.begin(),vVector.end());
+	Logan::make_heap(vVector.begin(),vVector.end());
+	for(FixVector<int,50>::iterator it = vVector.begin(); it != vVector.end();it++)
+		cout<<*it<<endl;
+	vVector.push_back(9);
+	cout<<"===================push heap 9======"<<endl;
+	std::push_heap(vVector.begin(),vVector.end());
 	for(FixVector<int,50>::iterator it = vVector.begin(); it != vVector.end();it++)
 		cout<<*it<<endl;
 	return 0;

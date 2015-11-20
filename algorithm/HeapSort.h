@@ -26,7 +26,7 @@
 namespace Logan
 {
 
-	//Assume that [first,last) is already a heap, and new element in last;
+	//Assume that [first,last-1) is already a heap, and new element in last-1;
 	template <class RandomIt>
 	inline void push_heap(RandomIt first, RandomIt last)
 	{
@@ -36,9 +36,9 @@ namespace Logan
 		ValueType newEle = *(last - 1);	
 		DistanceType cur = last - 1 - first;
 		DistanceType parent = (cur-1)/2;
-		while(*(first+parent) < *(first+cur) && parent < top && cur != 0)
+		while(*(first+parent) < newEle  && top < cur)
 		{
-			*(first+parent) = *(first+cur);
+			*(first+cur) = *(first+parent);
 			cur = parent;
 			parent = (cur-1)/2;
 		}
