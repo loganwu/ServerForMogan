@@ -40,7 +40,7 @@ public:
 	void clear();
 	reference operator[](size_type  n){return *(begin()+n);}
 	reference front(){return *start;}
-	reference back(){return  *finish;}
+	reference back(){return  *(finish-1);}
 	size_type capacity(){return size_type(end_of_storage - start);}
 	size_type size(){return size_type(finish - start);}
 	iterator begin(){return start;}
