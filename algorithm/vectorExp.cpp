@@ -30,6 +30,7 @@ int main()
 	vVector.push_back(2);
 	cout<<"capacity "<<vVector.capacity()<<endl;
 	cout<<"size "<<vVector.size()<<endl;
+	cout<<"back value "<<vVector.back()<<endl;
 	for(iter=vVector.begin();iter != vVector.end();iter++)
 	{
 		cout<<*iter<<endl;

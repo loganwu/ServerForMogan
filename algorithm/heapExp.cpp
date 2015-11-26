@@ -28,9 +28,11 @@ int main()
 	vVector.push_back(1);
 	vVector.push_back(0);
 	vVector.push_back(2);
+	vVector.push_back(4);
 	vVector.push_back(5);
-	vVector.push_back(3);
+	vVector.push_back(6);
 	Logan::make_heap(vVector.begin(),vVector.end());
+	cout<<"===================make heap ======"<<endl;
 	for(FixVector<int,50>::iterator it = vVector.begin(); it != vVector.end();it++)
 		cout<<*it<<endl;
 	vVector.push_back(9);
@@ -40,6 +42,12 @@ int main()
 		cout<<*it<<endl;
 	cout<<"===================pop heap======"<<endl;
 	Logan::pop_heap(vVector.begin(),vVector.end());
-	cout<<*vVector.back()<<endl;
+	vVector.pop_back();
+	for(FixVector<int,50>::iterator it = vVector.begin(); it != vVector.end();it++)
+		cout<<*it<<endl;
+	cout<<"===================sort heap======"<<endl;
+	Logan::sort_heap(vVector.begin(),vVector.end());
+	for(FixVector<int,50>::iterator it = vVector.begin(); it != vVector.end();it++)
+		cout<<*it<<endl;
 	return 0;
 }
